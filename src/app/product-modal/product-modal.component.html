@@ -1,0 +1,16 @@
+<div class="product-modal" *ngIf="product">
+  <h1 mat-dialog-title>Create new product</h1>
+  <div mat-dialog-content class="product-modal__content">
+    <mat-form-field>
+      <input matInput [(ngModel)]="product.name" placeholder="Name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [(ngModel)]="product.price" placeholder="Price">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="product" cdkFocusInitial>Save</button>
+  </div>
+</div>

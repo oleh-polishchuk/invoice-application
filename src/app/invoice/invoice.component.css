@@ -1,0 +1,43 @@
+.invoice__customer {
+  width: 100%;
+}
+
+.invoice__product-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.invoice__product-card {
+  margin-bottom: 20px;
+}
+
+.invoice__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.invoice__footer {
+  display: flex;
+  padding: 20px;
+  justify-content: flex-end;
+}
+
+.invoice__footer-item {
+  margin: 5px;
+}
+
+.product-item__item {
+  width: 100%;
+}
+
+.invoice__product {
+  width: 100%;
+}
+
+.product-list__action {
+  display: flex;
+  justify-content: center;
+  max-width: 40px;
+  cursor: pointer;
+}

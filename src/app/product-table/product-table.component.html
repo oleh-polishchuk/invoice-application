@@ -1,0 +1,59 @@
+<div class="product-table">
+
+  <mat-card>
+    <mat-card-content>
+
+      <mat-table #table [dataSource]="productDataSource">
+
+        <!-- Name -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.name }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Price -->
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.price | currency:'USD':'true':'1.2-2' }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Quantity -->
+        <ng-container matColumnDef="quantity">
+          <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.quantity }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Total Amount -->
+        <ng-container matColumnDef="totalAmount">
+          <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ getTotalAmount(element) | currency:'USD':'true':'1.2-2' }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Action -->
+        <ng-container matColumnDef="action">
+          <mat-header-cell class="product__action-header-cell" *matHeaderCellDef> Action </mat-header-cell>
+          <mat-cell class="product__action-cell" *matCellDef="let element">
+            <mat-icon *ngIf="config.remove" (click)="removeProduct(element)">delete</mat-icon>
+            <mat-icon *ngIf="config.edit" (click)="editProduct(element)">edit</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <h6 class="product__label-info" *ngIf="isEmptyTable()">
+        No Records Found
+      </h6>
+    </mat-card-content>
+  </mat-card>
+
+</div>

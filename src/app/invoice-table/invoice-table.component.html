@@ -1,0 +1,72 @@
+<div class="invoice-table">
+
+  <mat-card>
+    <mat-card-content>
+
+      <mat-table #table [dataSource]="invoiceDataSource">
+
+        <!-- Customer Name -->
+        <ng-container matColumnDef="customer">
+          <mat-header-cell *matHeaderCellDef>Customer</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="invoice-table__customer-cell" (click)="editItem(element)">
+            {{ element.customer.name }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Discount -->
+        <ng-container matColumnDef="discount">
+          <mat-header-cell *matHeaderCellDef>Discount</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.discount }}%
+          </mat-cell>
+        </ng-container>
+
+        <!-- Total Amount -->
+        <ng-container matColumnDef="totalAmount">
+          <mat-header-cell *matHeaderCellDef>Total</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.total | currency:'USD':'true':'1.2-2' }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Created At -->
+        <ng-container matColumnDef="createdAt">
+          <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.createdAt | date: 'dd/MM/yyyy' }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Action -->
+        <ng-container matColumnDef="action">
+          <mat-header-cell class="invoice__action-header-cell" *matHeaderCellDef>Action</mat-header-cell>
+          <mat-cell class="invoice__action-cell" *matCellDef="let element">
+
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="editItem(element)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="removeItem(element)">
+                <mat-icon>delete</mat-icon>
+                <span>Remove</span>
+              </button>
+            </mat-menu>
+
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <h6 class="invoice__label-info" *ngIf="isEmptyTable()">
+        No Records Found
+      </h6>
+    </mat-card-content>
+  </mat-card>
+
+</div>
