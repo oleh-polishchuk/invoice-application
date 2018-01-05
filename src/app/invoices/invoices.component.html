@@ -1,0 +1,17 @@
+<div class="invoices" *ngIf="invoices">
+
+  <mat-card>
+    <mat-card-content>
+      <div class="invoices__buttons-panel">
+        <button mat-raised-button routerLink="/invoices/create">Create</button>
+      </div>
+
+      <app-invoice-table [items]="invoices"
+                         (itemsChange)="updateInvoices($event)"
+                         (onEdit)="editInvoice($event)"
+                         (onRemove)="removeInvoice($event)">
+      </app-invoice-table>
+    </mat-card-content>
+  </mat-card>
+
+</div>

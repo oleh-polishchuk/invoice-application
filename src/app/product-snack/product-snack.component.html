@@ -1,0 +1,6 @@
+<div class="product-snack" *ngIf="productSnack">
+  <h4 class="product-snack__message">{{ productSnack.message }}</h4>
+  <button mat-button color="warn" class="product-snack__action" (click)="action()">
+    {{ productSnack.button.caption }}
+  </button>
+</div>
