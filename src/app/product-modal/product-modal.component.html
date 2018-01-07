@@ -1,16 +1,28 @@
 <div class="product-modal" *ngIf="product">
-  <h1 mat-dialog-title>Create new product</h1>
-  <div mat-dialog-content class="product-modal__content">
-    <mat-form-field>
-      <input matInput [(ngModel)]="product.name" placeholder="Name">
-    </mat-form-field>
+  <form [formGroup]="productForm" (ngSubmit)="save(productForm)">
 
-    <mat-form-field>
-      <input matInput [(ngModel)]="product.price" placeholder="Price">
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="product" cdkFocusInitial>Save</button>
-  </div>
+    <h1 mat-dialog-title>Create new product</h1>
+    <div mat-dialog-content class="product-modal__content">
+      <mat-form-field>
+        <input matInput type="text" name="name" formControlName="name" placeholder="Name" required>
+        <mat-hint align="end">
+          <app-show-errors [control]="productForm.controls.name"></app-show-errors>
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" name="price" formControlName="price" placeholder="Price" required>
+        <mat-hint align="end">
+          <app-show-errors [control]="productForm.controls.price"></app-show-errors>
+        </mat-hint>
+      </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+      <button type="button" mat-button (click)="cancel()">Cancel</button>
+      <button type="submit" mat-button cdkFocusInitial [disabled]="productForm.invalid || productForm.pending">
+        Save
+      </button>
+    </div>
+  </form>
 </div>
