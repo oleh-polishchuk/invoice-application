@@ -18,7 +18,7 @@ import { InvoiceItem } from "../invoice-item/invoice-item";
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
-  styleUrls: [ './invoice.component.css' ]
+  styleUrls: [ './invoice.component.scss' ]
 })
 export class InvoiceComponent implements OnInit {
 

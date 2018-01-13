@@ -8,7 +8,7 @@ import { InvoiceService } from "../services/invoice.service";
 @Component({
   selector: 'app-invoice-table',
   templateUrl: './invoice-table.component.html',
-  styleUrls: [ './invoice-table.component.css' ]
+  styleUrls: [ './invoice-table.component.scss' ]
 })
 export class InvoiceTableComponent implements OnInit, DoCheck {
 

@@ -5,7 +5,7 @@ import { ProductSnack } from "./product-snack";
 @Component({
   selector: 'app-product-snack',
   templateUrl: './product-snack.component.html',
-  styleUrls: ['./product-snack.component.css']
+  styleUrls: ['./product-snack.component.scss']
 })
 export class ProductSnackComponent implements OnInit {
 

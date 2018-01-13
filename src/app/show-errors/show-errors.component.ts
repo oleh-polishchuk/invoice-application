@@ -4,7 +4,7 @@ import { AbstractControl, AbstractControlDirective } from "@angular/forms";
 @Component({
   selector: 'app-show-errors',
   templateUrl: './show-errors.component.html',
-  styleUrls: [ './show-errors.component.css' ]
+  styleUrls: [ './show-errors.component.scss' ]
 })
 export class ShowErrorsComponent {
 
