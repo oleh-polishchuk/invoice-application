@@ -10,6 +10,7 @@ import { InvoicesComponent } from "./invoices/invoices.component";
 const routes: Routes = [
   { path: '', redirectTo: '/invoices', pathMatch: 'full' },
   { path: 'products', component: ProductsComponent },
+  { path: 'products/add', component: ProductComponent },
   { path: 'products/:id', component: ProductComponent },
   { path: 'customers', component: CustomersComponent },
   { path: 'customers/:id', component: CustomerComponent },
