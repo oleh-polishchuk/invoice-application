@@ -32,4 +32,34 @@ export class CustomerService extends HttpService {
     );
   }
 
+  /** POST customer. Will 404 if id not found */
+  saveCustomer(customer: Customer) {
+    return this.http.post<Customer>(this.customersUrl, customer, this.httpOptions).pipe(
+      tap(_ => this.log(`save customer name=${customer.name}`)),
+      catchError(this.handleError<Customer>(`saveCustomer name=${customer.name}`))
+    );
+  }
+
+  /** PUT customer by id. Will 404 if id not found */
+  updateCustomer(customer: Customer) {
+    const url = `${this.customersUrl}/${customer.id}`;
+    return this.http.put<Customer>(url, customer, this.httpOptions).pipe(
+      tap(_ => this.log(`updated customer id=${customer.id}`)),
+      catchError(this.handleError<Customer>(`updateCustomer id=${customer.id}`))
+    );
+  }
+
+  /** DELETE customer by id. Will 404 if id not found */
+  deleteCustomer(id: number) {
+    if (!id) {
+      throw `Cannot delete customer with id: ${id}`;
+    }
+
+    const url = `${this.customersUrl}/${id}`;
+    return this.http.delete<Customer>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted customer id=${id}`)),
+      catchError(this.handleError<Customer>(`deleteCustomer id=${id}`))
+    );
+  }
+
 }

@@ -19,7 +19,7 @@ export class ProductsComponent implements OnInit {
 
 
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns = [ 'id', 'name', 'price', 'actions' ];
+  displayedColumns = [ 'name', 'price', 'actions' ];
   dataSource;
 
   constructor(private productService: ProductService,

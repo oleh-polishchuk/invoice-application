@@ -9,7 +9,6 @@ import { MatSnackBar, MatSnackBarConfig } from "@angular/material";
 import { ProductSnack } from "../product-snack/product-snack";
 import { FormControl, FormGroup, NgForm } from "@angular/forms";
 
-
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -28,7 +27,7 @@ export class ProductComponent implements OnInit {
               private productService: ProductService) {}
 
   ngOnInit() {
-    this.productForm = this.getProductFormGroup();
+    this.productForm = this.getFormGroup();
     this.getProduct();
   }
 
@@ -37,7 +36,7 @@ export class ProductComponent implements OnInit {
    *
    * @returns {FormGroup}
    */
-  private getProductFormGroup() {
+  private getFormGroup() {
     return new FormGroup({
       id: new FormControl(),
       name: new FormControl(),
