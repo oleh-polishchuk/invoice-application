@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from '../product/product';
-import { MatSnackBar, MatSnackBarConfig, MatSort, MatTableDataSource } from "@angular/material";
+import { MatSnackBar, MatSnackBarConfig, MatTableDataSource } from "@angular/material";
 import { ProductSnackComponent } from "../product-snack/product-snack.component";
 import { ProductSnack } from "../product-snack/product-snack";
 import { Router } from "@angular/router";
@@ -18,7 +18,6 @@ export class ProductsComponent implements OnInit {
   productSnack = new ProductSnack();
 
 
-  @ViewChild(MatSort) sort: MatSort;
   displayedColumns = [ 'name', 'price', 'actions' ];
   dataSource;
 
@@ -38,7 +37,6 @@ export class ProductsComponent implements OnInit {
       .subscribe(products => {
         this.products = this.orderBy(products, 'id', 'desc');
         this.dataSource = new MatTableDataSource(this.products);
-        this.dataSource.sort = this.sort;
       });
   }
 

@@ -9,23 +9,23 @@
   <mat-card>
     <mat-card-content>
 
-      <mat-table #table [dataSource]="dataSource" matSort>
+      <mat-table #table [dataSource]="dataSource">
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Name. </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Name. </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
         </ng-container>
 
         <!-- Address Column -->
         <ng-container matColumnDef="address">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
         </ng-container>
 
         <!-- Phone Column -->
         <ng-container matColumnDef="phone">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Phone </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
         </ng-container>
 

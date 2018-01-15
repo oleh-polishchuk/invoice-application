@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Customer } from '../customer/customer';
 import { CustomerService } from '../services/customer.service';
-import { MatSort, MatTableDataSource } from "@angular/material";
+import { MatTableDataSource } from "@angular/material";
 import { Router } from "@angular/router";
 
 @Component({
@@ -13,7 +13,6 @@ export class CustomersComponent implements OnInit {
 
   customers: Customer[];
 
-  @ViewChild(MatSort) sort: MatSort;
   displayedColumns = [ 'name', 'address', 'phone', 'actions' ];
   dataSource;
 
@@ -32,7 +31,6 @@ export class CustomersComponent implements OnInit {
       .subscribe(customers => {
         this.customers = this.orderBy(customers, 'id', 'desc');
         this.dataSource = new MatTableDataSource(this.customers);
-        this.dataSource.sort = this.sort;
       });
   }
 
