@@ -1,22 +1,23 @@
-.invoice-table {}
+.invoice {
+  &__customer-cell {
+    cursor: pointer;
+  }
 
-.invoice__action-header-cell {
-  display: flex;
-  justify-content: center;
-  max-width: 50px;
-}
+  &__action-header-cell {
+    display: flex;
+    justify-content: center;
+    max-width: 50px;
+  }
 
-.invoice__action-cell {
-  display: flex;
-  justify-content: center;
-  max-width: 50px;
-  cursor: pointer;
-}
+  &__action-cell {
+    display: flex;
+    justify-content: center;
+    max-width: 50px;
+    cursor: pointer;
+  }
 
-.invoice-table__customer-cell {
-  cursor: pointer;
-}
+  &__label-info {
+    text-align: center;
+  }
 
-.invoice__label-info {
-text-align: center;
 }

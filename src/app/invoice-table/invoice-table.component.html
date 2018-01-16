@@ -1,4 +1,4 @@
-<div class="invoice-table">
+<div class="invoice">
 
   <mat-card>
     <mat-card-content>
@@ -8,7 +8,7 @@
         <!-- Customer Name -->
         <ng-container matColumnDef="customer">
           <mat-header-cell *matHeaderCellDef>Customer</mat-header-cell>
-          <mat-cell *matCellDef="let element" class="invoice-table__customer-cell" (click)="editItem(element)">
+          <mat-cell *matCellDef="let element" class="invoice__customer-cell" (click)="editItem(element)">
             {{ element.customer.name }}
           </mat-cell>
         </ng-container>
