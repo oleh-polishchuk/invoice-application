@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from '../product/product';
-import { MatSnackBar, MatSnackBarConfig, MatTableDataSource } from "@angular/material";
-import { ProductSnackComponent } from "../product-snack/product-snack.component";
+import { MatSort, MatTableDataSource } from "@angular/material";
 import { ProductSnack } from "../product-snack/product-snack";
 import { Router } from "@angular/router";
 
@@ -14,15 +13,14 @@ import { Router } from "@angular/router";
 export class ProductsComponent implements OnInit {
 
   product: Product;
-  products: Product[];
+  products: Product[] = [];
   productSnack = new ProductSnack();
 
-
+  @ViewChild(MatSort) sort: MatSort;
   displayedColumns = [ 'name', 'price', 'actions' ];
   dataSource;
 
   constructor(private productService: ProductService,
-              public snackBar: MatSnackBar,
               private router: Router) { }
 
   ngOnInit() {
@@ -35,8 +33,9 @@ export class ProductsComponent implements OnInit {
   getProducts() {
     this.productService.getProducts()
       .subscribe(products => {
-        this.products = this.orderBy(products, 'id', 'desc');
+        this.products = products;
         this.dataSource = new MatTableDataSource(this.products);
+        this.dataSource.sort = this.sort;
       });
   }
 
@@ -48,52 +47,20 @@ export class ProductsComponent implements OnInit {
   }
 
   /**
-   * Show notification with Undo action
-   *
-   * @param message
+   * Method remove product from db
+   * @param product
    */
-  showUndoNotification(message: string) {
-    this.productSnack = this.getUndoProductSnack(message);
-    this.snackBar.openFromComponent(ProductSnackComponent, {
-      duration: 60000,
-      data: { productSnack: this.productSnack }
-    } as MatSnackBarConfig);
-  }
-
-  /**
-   * Method return instance of product notification (snack) for undo action
-   *
-   * @param message
-   * @returns {ProductSnack}
-   */
-  private getUndoProductSnack(message: string) {
-    return {
-      message: message,
-      button: {
-        caption: 'Undo',
-        action: () => {
-          this.undo(this.product);
-        }
-      }
-    } as ProductSnack;
-  }
-
-  /**
-   * Undo action
-   */
-  undo(product: Product): void {
+  removeProduct(product: Product) {
     this.productService.deleteProduct(product.id)
       .subscribe(_ => this.getProducts());
   }
 
-  orderBy(products: Product[], fieldName: string, order: string): Product[] {
-    return products.sort((a: Product, b: Product) => {
-      if (order === 'asc') {
-        return a[ fieldName ] - b[ fieldName ];
-      } else {
-        return b[ fieldName ] - a[ fieldName ];
-      }
-    });
+  /**
+   * Method redirect to edit product page
+   * @param product
+   */
+  editProduct(product: Product) {
+    this.router.navigate([ `/products/${product.id}` ]);
   }
 
 }

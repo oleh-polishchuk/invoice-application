@@ -1,3 +1,5 @@
+$gray: #f8f8f8;
+
 .products {
   &__name-cell {
     cursor: pointer;
@@ -33,4 +35,8 @@
   top: 0;
   background: white;
   z-index: 1000;
+}
+
+.mat-row:hover {
+  background-color: $gray;
 }

@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Customer } from './customer';
 import { CustomerService } from '../services/customer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, NgForm } from "@angular/forms";
-import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: 'app-customer',
@@ -55,6 +54,10 @@ export class CustomerComponent implements OnInit {
     this.router.navigate([ '/customers' ]);
   }
 
+  /**
+   * Method save new or update existing customer
+   * @param customerForm
+   */
   saveCustomer(customerForm: NgForm) {
     if (customerForm.dirty && customerForm.valid) {
       if (this.customerForm.value.id) {

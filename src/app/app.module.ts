@@ -17,7 +17,8 @@ import {
   MatSnackBarModule,
   MatTableModule,
   MatAutocompleteModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSortModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -53,13 +54,14 @@ import { ShowErrorsComponent } from './show-errors/show-errors.component';
     MatButtonModule,
     MatCheckboxModule,
     MatSlideToggleModule,
+    MatSortModule,
     MatTableModule,
     MatIconModule,
     MatInputModule,
     MatDialogModule,
     MatSnackBarModule,
     MatAutocompleteModule,
-    MatMenuModule,
+    MatMenuModule
   ],
   declarations: [
     AppComponent,

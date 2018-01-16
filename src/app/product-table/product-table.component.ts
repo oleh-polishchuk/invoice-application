@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatTableDataSource } from "@angular/material";
 import { SimpleTableConfig } from "../entities/simple-table-config";
@@ -59,7 +58,7 @@ export class ProductTableComponent implements OnInit, DoCheck {
    * @param product
    */
   editProduct(product: Product) {
-    this.router.navigate([`/products/${product.id}`]);
+    this.router.navigate([ `/products/${product.id}` ]);
   }
 
   /**
