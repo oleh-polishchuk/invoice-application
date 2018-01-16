@@ -9,13 +9,19 @@ import { InvoicesComponent } from "./invoices/invoices.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/invoices', pathMatch: 'full' },
+
   { path: 'products', component: ProductsComponent },
+  { path: 'products/add', component: ProductComponent },
   { path: 'products/:id', component: ProductComponent },
+
   { path: 'customers', component: CustomersComponent },
+  { path: 'customers/add', component: CustomerComponent },
   { path: 'customers/:id', component: CustomerComponent },
+
   { path: 'invoices', component: InvoicesComponent },
   { path: 'invoices/:id', component: InvoiceComponent },
   { path: 'invoices/create', component: InvoiceComponent },
+
   { path: '**', redirectTo: '/invoices' }
 ];
 

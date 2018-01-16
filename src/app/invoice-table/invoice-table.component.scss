@@ -1,0 +1,23 @@
+.invoice {
+  &__customer-cell {
+    cursor: pointer;
+  }
+
+  &__action-header-cell {
+    display: flex;
+    justify-content: center;
+    max-width: 50px;
+  }
+
+  &__action-cell {
+    display: flex;
+    justify-content: center;
+    max-width: 50px;
+    cursor: pointer;
+  }
+
+  &__label-info {
+    text-align: center;
+  }
+
+}

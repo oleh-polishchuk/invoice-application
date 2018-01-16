@@ -1,6 +1,53 @@
-<div class="customer" *ngIf="customer">
-  <div class="customer__id">{{ customer.id }}</div>
-  <div class="customer__name">{{ customer.name }}</div>
-  <div class="customer__address">{{ customer.address }}</div>
-  <div class="customer__phone">{{ customer.phone }}</div>
+<div class="customer" *ngIf="customerForm">
+
+  <form novalidate [formGroup]="customerForm" (ngSubmit)="saveCustomer(customerForm)">
+
+    <mat-card class="card">
+      <mat-card-title class="card__title" *ngIf="customerCopy">{{ customerCopy.name }}
+        <h6 class="card__subtitle">
+          {{ customerForm.value.createdAt | date }} - {{ customerForm.value.updatedAt | date }}
+        </h6>
+      </mat-card-title>
+      <mat-card-title class="card__title" *ngIf="!customerForm.value.id">Add new Customer</mat-card-title>
+      <mat-card-content class="card__content">
+
+        <!-- Name -->
+        <mat-form-field>
+          <input matInput type="text" name="name" formControlName="name" placeholder="Name" required>
+          <mat-hint align="end">
+            <app-show-errors [control]="customerForm.controls.name"></app-show-errors>
+          </mat-hint>
+        </mat-form-field>
+
+        <!-- Address -->
+        <mat-form-field>
+          <input matInput type="text" name="address" formControlName="address" placeholder="Address" required>
+          <mat-hint align="end">
+            <app-show-errors [control]="customerForm.controls.address"></app-show-errors>
+          </mat-hint>
+        </mat-form-field>
+
+        <!-- Phone -->
+        <mat-form-field>
+          <input matInput type="text" name="phone" formControlName="phone" placeholder="Phone" required>
+          <mat-hint align="end">
+            <app-show-errors [control]="customerForm.controls.phone"></app-show-errors>
+          </mat-hint>
+        </mat-form-field>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button type="button" (click)="cancel()">Cancel</button>
+        <button mat-raised-button type="submit" color="primary"
+                [disabled]="customerForm.invalid || customerForm.pristine">
+          {{ customerForm.value.id ? 'Update' : 'Save' }}
+        </button>
+        <button mat-raised-button type="button" (click)="deleteCustomer()" color="warn" *ngIf="customerForm.value.id">
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+  </form>
+
 </div>

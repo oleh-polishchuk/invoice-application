@@ -1,17 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from '../product/product';
-import { MatDialog, MatSnackBar, MatSnackBarConfig, MatSort, MatTableDataSource } from "@angular/material";
-import { ProductModalComponent } from "../product-modal/product-modal.component";
+import { MatSnackBar, MatSnackBarConfig, MatTableDataSource } from "@angular/material";
 import { ProductSnackComponent } from "../product-snack/product-snack.component";
 import { ProductSnack } from "../product-snack/product-snack";
-import { SimpleTableService } from "../services/simple-table.service";
-import { SimpleTableConfig } from "../entities/simple-table-config";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: [ './products.component.css' ]
+  styleUrls: [ './products.component.scss' ]
 })
 export class ProductsComponent implements OnInit {
 
@@ -20,20 +18,14 @@ export class ProductsComponent implements OnInit {
   productSnack = new ProductSnack();
 
 
-  @ViewChild(MatSort) sort: MatSort;
-  displayedColumns = [ 'id', 'name', 'price', 'actions' ];
+  displayedColumns = [ 'name', 'price', 'actions' ];
   dataSource;
 
-  productTableConfig: SimpleTableConfig;
-
   constructor(private productService: ProductService,
-              public dialog: MatDialog,
               public snackBar: MatSnackBar,
-              private simpleTableService: SimpleTableService) { }
+              private router: Router) { }
 
   ngOnInit() {
-    // this.simpleTableService.initConfig({edit: true});
-    // this.productTableConfig = this.simpleTableService.getConfig();
     this.getProducts();
   }
 
@@ -43,9 +35,8 @@ export class ProductsComponent implements OnInit {
   getProducts() {
     this.productService.getProducts()
       .subscribe(products => {
-        this.products = products;
+        this.products = this.orderBy(products, 'id', 'desc');
         this.dataSource = new MatTableDataSource(this.products);
-        this.dataSource.sort = this.sort;
       });
   }
 
@@ -53,28 +44,7 @@ export class ProductsComponent implements OnInit {
    * Add product
    */
   addProduct() {
-    this.openCreateProductDialog();
-  }
-
-  /**
-   * Open create new product modal window
-   */
-  openCreateProductDialog(): void {
-    let dialogRef = this.dialog.open(ProductModalComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.product = result;
-      if (this.product && this.product.isValid()) {
-        console.log('The dialog was closed with result:', result);
-
-        this.productService.saveProduct(this.product)
-          .subscribe(product => {
-            this.product = product;
-            this.getProducts();
-            this.showUndoNotification('Product created');
-          });
-      }
-    });
+    this.router.navigate([ '/products/add' ]);
   }
 
   /**
@@ -114,6 +84,16 @@ export class ProductsComponent implements OnInit {
   undo(product: Product): void {
     this.productService.deleteProduct(product.id)
       .subscribe(_ => this.getProducts());
+  }
+
+  orderBy(products: Product[], fieldName: string, order: string): Product[] {
+    return products.sort((a: Product, b: Product) => {
+      if (order === 'asc') {
+        return a[ fieldName ] - b[ fieldName ];
+      } else {
+        return b[ fieldName ] - a[ fieldName ];
+      }
+    });
   }
 
 }

@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 @Component({
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
-  styleUrls: [ './invoices.component.css' ]
+  styleUrls: [ './invoices.component.scss' ]
 })
 export class InvoicesComponent implements OnInit {
 

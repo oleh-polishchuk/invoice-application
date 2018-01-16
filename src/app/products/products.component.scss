@@ -1,0 +1,36 @@
+.products {
+  &__name-cell {
+    cursor: pointer;
+  }
+
+  &__action-header-cell {
+    display: flex;
+    justify-content: center;
+    max-width: 50px;
+  }
+
+  &__action-cell {
+    display: flex;
+    justify-content: center;
+    max-width: 50px;
+    cursor: pointer;
+  }
+
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 400px;
+}
+
+.mat-header-row {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1000;
+}

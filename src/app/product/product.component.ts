@@ -7,17 +7,18 @@ import { Product } from './product';
 import { ProductSnackComponent } from "../product-snack/product-snack.component";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material";
 import { ProductSnack } from "../product-snack/product-snack";
-
+import { FormControl, FormGroup, NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: [ './product.component.css' ]
+  styleUrls: [ './product.component.scss' ]
 })
 export class ProductComponent implements OnInit {
 
-  productSnack: ProductSnack;
+  productForm: FormGroup;
   productCopy: Product;
+  productSnack: ProductSnack;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -25,31 +26,58 @@ export class ProductComponent implements OnInit {
               private location: Location,
               private productService: ProductService) {}
 
-  @Input()
-  product: Product;
-
   ngOnInit() {
+    this.productForm = this.getFormGroup();
     this.getProduct();
+  }
+
+  /**
+   * Method return instance of product form group
+   *
+   * @returns {FormGroup}
+   */
+  private getFormGroup() {
+    return new FormGroup({
+      id: new FormControl(),
+      name: new FormControl(),
+      price: new FormControl(),
+      createdAt: new FormControl(),
+      updatedAt: new FormControl(),
+    });
   }
 
   getProduct() {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.productService.getProduct(id)
-      .subscribe(product => this.product = product);
+    if (id) {
+      this.productService.getProduct(id)
+        .subscribe(product => {
+          this.productCopy = Object.assign({}, product);
+          this.productForm.patchValue(product);
+        });
+    }
   }
 
   cancel() {
     this.location.back();
   }
 
-  saveProduct() {
-    this.productService.updateProduct(this.product)
-      .subscribe(_ => this.location.back());
+  saveProduct(productForm: NgForm) {
+    if (productForm.dirty && productForm.valid) {
+      if (this.productForm.value.id) {
+        this.productService.updateProduct(this.productForm.value)
+          .subscribe(_ => this.router.navigate([ "/products" ]));
+      } else {
+        this.productService.saveProduct(this.productForm.value)
+          .subscribe(_ => this.router.navigate([ "/products" ]));
+      }
+    }
   }
 
+  /**
+   * Method delete product
+   */
   deleteProduct() {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.productCopy = Object.assign({}, this.product);
     this.productService.deleteProduct(id)
       .subscribe(_ => {
         this.location.back();
@@ -91,7 +119,7 @@ export class ProductComponent implements OnInit {
 
   undoDelete(product: Product) {
     this.productService.saveProduct(product)
-      .subscribe(_ => this.router.navigate(['/products']));
+      .subscribe(_ => this.router.navigate([ '/products' ]));
   }
 
 }

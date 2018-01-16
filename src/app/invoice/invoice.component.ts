@@ -18,7 +18,7 @@ import { InvoiceItem } from "../invoice-item/invoice-item";
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
-  styleUrls: [ './invoice.component.css' ]
+  styleUrls: [ './invoice.component.scss' ]
 })
 export class InvoiceComponent implements OnInit {
 
@@ -211,8 +211,10 @@ export class InvoiceComponent implements OnInit {
   saveInvoice(): void {
     if (this.invoice && this.invoice.isValidToSave()) {
       this.invoiceService.saveInvoice(this.invoice)
-        .subscribe(invoice => this.saveInvoiceItems(invoice));
-      this.router.navigate([ '/invoices' ]);
+        .subscribe(invoice => {
+          this.saveInvoiceItems(invoice);
+          this.router.navigate([ '/invoices' ]);
+        });
     }
   }
 

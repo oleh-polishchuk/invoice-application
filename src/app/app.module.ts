@@ -31,7 +31,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductComponent } from './product/product.component';
 import { ProductService } from './services/product.service';
 import { ProductsComponent } from './products/products.component';
-import { ProductModalComponent } from './product-modal/product-modal.component';
 import { ProductSnackComponent } from './product-snack/product-snack.component';
 import { ProductTableComponent } from './product-table/product-table.component';
 import { SimpleTableService } from './services/simple-table.service';
@@ -70,14 +69,13 @@ import { ShowErrorsComponent } from './show-errors/show-errors.component';
     CustomersComponent,
     ProductComponent,
     ProductsComponent,
-    ProductModalComponent,
     ProductSnackComponent,
     ProductTableComponent,
     InvoiceTableComponent,
     InvoiceItemComponent,
     ShowErrorsComponent
   ],
-  entryComponents: [ ProductModalComponent, ProductSnackComponent ],
+  entryComponents: [ ProductSnackComponent ],
   providers: [ InvoiceService, CustomerService, ProductService, SimpleTableService, InvoiceItemService ],
   bootstrap: [ AppComponent ]
 })

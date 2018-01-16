@@ -19,3 +19,8 @@ yarn-error.log*
 # ----------------- #
 node_modules/
 yarn.lock
+
+# ----------------- #
+#    Database
+# ----------------- #
+invoices.sqlite
