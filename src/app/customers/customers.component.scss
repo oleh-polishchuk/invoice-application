@@ -1,4 +1,23 @@
+$gray: #f8f8f8;
+
 .customers {
+
+  &__table {
+    overflow: auto;
+    max-height: 400px;
+
+    &-header-row {
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 1000;
+    }
+
+    &-row:hover {
+      background-color: $gray;
+    }
+  }
+
   &__name-cell {
     cursor: pointer;
   }
@@ -24,21 +43,3 @@
   }
 
 }
-
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
-
-.mat-table {
-  overflow: auto;
-  max-height: 400px;
-}
-
-.mat-header-row {
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 1000;
-}
-

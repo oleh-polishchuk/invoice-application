@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Customer } from '../customer/customer';
 import { CustomerService } from '../services/customer.service';
-import { MatTableDataSource } from "@angular/material";
+import { MatSort, MatTableDataSource, Sort } from "@angular/material";
 import { Router } from "@angular/router";
 
 @Component({
@@ -11,9 +11,10 @@ import { Router } from "@angular/router";
 })
 export class CustomersComponent implements OnInit {
 
-  customers: Customer[];
+  customers: Customer[] = [];
 
-  displayedColumns = [ 'name', 'address', 'phone', 'actions' ];
+  @ViewChild(MatSort) sort: MatSort;
+  displayedColumns = [ 'name', 'address', 'phone', 'date', 'actions' ];
   dataSource;
 
   constructor(private customerService: CustomerService,
@@ -29,8 +30,9 @@ export class CustomersComponent implements OnInit {
   getCustomers(): void {
     this.customerService.getCustomers()
       .subscribe(customers => {
-        this.customers = this.orderBy(customers, 'id', 'desc');
+        this.customers = customers;
         this.dataSource = new MatTableDataSource(this.customers);
+        this.dataSource.sort = this.sort;
       });
   }
 
@@ -41,16 +43,21 @@ export class CustomersComponent implements OnInit {
     this.router.navigate([ '/customers/add' ]);
   }
 
-  // TODO Polishchuk: use generic and move into shared service
-  // TODO Polishchuk: use sort from build in matSort
-  orderBy(products: Customer[], fieldName: string, order: string): Customer[] {
-    return products.sort((a: Customer, b: Customer) => {
-      if (order === 'asc') {
-        return a[ fieldName ] - b[ fieldName ];
-      } else {
-        return b[ fieldName ] - a[ fieldName ];
-      }
-    });
+  /**
+   * Method remove customer from db
+   * @param customer
+   */
+  removeCustomer(customer: Customer) {
+    this.customerService.deleteCustomer(customer.id)
+      .subscribe(_ => this.getCustomers());
+  }
+
+  /**
+   * Method redirect to edit customer page
+   * @param customer
+   */
+  editCustomer(customer: Customer) {
+    this.router.navigate([ `/customers/${customer.id}` ]);
   }
 
 }

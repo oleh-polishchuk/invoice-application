@@ -128,8 +128,9 @@ export class InvoiceComponent implements OnInit {
   }
 
   filterCustomers(selectedCustomer) {
+    let selectedCustomerName = selectedCustomer && (selectedCustomer.name || selectedCustomer);
     return this.customers.filter(customer =>
-      customer.name.toLocaleLowerCase().indexOf(selectedCustomer.name.toLocaleLowerCase()) === 0
+      customer.name.toLocaleLowerCase().indexOf(selectedCustomerName.toLocaleLowerCase()) === 0
     );
   }
 
