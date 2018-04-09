@@ -28,6 +28,19 @@ Features:
 
 [http://localhost:4200](http://localhost:4200)
 
+# Database
+
+To generate new ```invoices.db``` use next command:
+
+    sqlite3 invoices.db
+    sqlite> .databeses
+
+The result should be like that:
+
+    main: /Users/olehpolishchuk/workspace/invoice-application/invoice.db
+
+Great! That mean you successfully generate new db file.
+
 # Schema
 
 ## Customers

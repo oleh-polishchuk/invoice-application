@@ -6,9 +6,9 @@ var express = require('express'),
   _ = require('lodash');
 
 
-sequelize = new Sequelize('sqlite://' + path.join(__dirname, 'invoices.sqlite'), {
+sequelize = new Sequelize('sqlite://' + path.join(__dirname, 'invoices.db'), {
   dialect: 'sqlite',
-  storage: path.join(__dirname, 'invoices.sqlite')
+  storage: path.join(__dirname, 'invoices.db')
 });
 
 Customer = sequelize.define('customers', {

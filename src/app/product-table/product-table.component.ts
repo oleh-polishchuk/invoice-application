@@ -1,8 +1,8 @@
 import { Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatTableDataSource } from "@angular/material";
-import { SimpleTableConfig } from "../entities/simple-table-config";
-import { Product } from "../product/product";
-import { Router } from "@angular/router";
+import { MatTableDataSource } from '@angular/material';
+import { SimpleTableConfig } from '../entities/simple-table-config';
+import { Product } from '../product/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-table',

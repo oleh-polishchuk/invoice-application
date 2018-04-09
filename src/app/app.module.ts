@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,7 +21,8 @@ import {
   MatTableModule,
   MatAutocompleteModule,
   MatMenuModule,
-  MatSortModule
+  MatSortModule,
+  MatSelectModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -55,6 +59,7 @@ import { ShowErrorsComponent } from './show-errors/show-errors.component';
     MatCheckboxModule,
     MatSlideToggleModule,
     MatSortModule,
+    MatSelectModule,
     MatTableModule,
     MatIconModule,
     MatInputModule,

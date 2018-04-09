@@ -1,90 +1,93 @@
 <div class="invoice" *ngIf="invoice">
 
-  <mat-card>
-    <mat-card-title class="invoice__title">
-      {{ invoice.id ? 'Edit' : 'Create new' }} Invoice
-    </mat-card-title>
+  <form [formGroup]="invoiceForm">
 
-    <mat-card-content>
+    <mat-card>
+      <mat-card-title class="invoice__title">
+        {{ invoice.id ? 'Edit' : 'Create new' }} Invoice
+      </mat-card-title>
 
-      <!-- Customer Dropdown -->
-      <mat-form-field class="invoice__customer">
-        <input matInput placeholder="Customer" aria-label="Customer" [matAutocomplete]="autocompleteCustomer"
-               [formControl]="customerCtrl">
-        <mat-autocomplete #autocompleteCustomer="matAutocomplete" (optionSelected)="customerSelected($event)"
-                          [displayWith]="displayWithName">
-          <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
-            <span>{{ customer.name }}</span> |
-            <small>Address: {{ customer.address }}</small>
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field><!-- @end of Customer Dropdown -->
+      <mat-card-content>
 
-      <!-- Products List -->
-      <div class="invoice__product-card">
-        <app-product-table [config]="productTableConfig"
-                           [items]="addedProducts"
-                           (itemsChange)="updateAddedProducts($event)">
-        </app-product-table>
-      </div>
-      <!-- @end of Products List -->
+        <!-- Customer select -->
+        <mat-form-field class="invoice__customer">
+          <mat-select formControlName="customer" placeholder="Customer">
+            <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer.id">
+              <span>{{ customer.name }}</span> |
+              <small>Address: {{ customer.address }}</small>
+            </mat-option>
+          </mat-select>
+        </mat-form-field><!-- @end of Customer select -->
 
-      <!-- Add new Product -->
-      <div class="invoice__product-item">
+        <!-- Products List -->
+        <div class="invoice__product-card">
+          <app-product-table [config]="productTableConfig" [items]="addedProducts"
+                             (itemsChange)="updateAddedProducts($event)">
+          </app-product-table>
+        </div><!-- @end of Products List -->
 
-        <!-- Product Dropdown -->
-        <div class="product-item__item">
-          <mat-form-field class="invoice__product">
-            <input matInput [matAutocomplete]="autocompleteProduct" [formControl]="productCtrl" placeholder="Product"
-                   aria-label="Product">
-            <mat-autocomplete #autocompleteProduct="matAutocomplete" (optionSelected)="productSelected($event)"
-                              [displayWith]="displayWithName">
-              <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
-                <span>{{ product.name }}</span> |
-                <small>Price: {{ product.price }}</small>
-              </mat-option>
-            </mat-autocomplete>
-            <mat-hint align="end">Select Product</mat-hint>
-          </mat-form-field>
-        </div><!-- @end of Product Dropdown -->
 
-        <!-- Product Quantity -->
-        <div class="product-item__item">
-          <mat-form-field>
-            <input matInput #quantityInput [(ngModel)]="addedProduct.quantity" minlength="1" type="number"
-                   placeholder="Quantity">
-            <mat-hint align="end">Enter Product Quantity</mat-hint>
-          </mat-form-field>
-        </div><!-- @end of Product Quantity -->
+        <!-- Add new Product -->
+        <div class="invoice__product-item">
 
-        <div class="product-item__item">
-          <button mat-raised-button (click)="addProduct(addedProduct)">Add</button>
-        </div>
+          <!-- Product select -->
+          <div class="product-item__item">
+            <mat-form-field class="invoice__product">
 
-      </div><!-- @end of Add new Product -->
+              <mat-select [formControl]="product_id" (selectionChange)="productSelected()" placeholder="Product">
+                <mat-option *ngFor="let product of filteredProducts | async" [value]="product.id">
+                  <span>{{ product.name }}</span> |
+                  <small>Price: {{ product.price }}</small>
+                </mat-option>
+              </mat-select>
 
-      <!-- Invoice Summary -->
-      <div class="invoice__summary">
+              <mat-hint align="end">Select Product</mat-hint>
+            </mat-form-field>
+          </div><!-- @end of Product select -->
 
-        <div class="invoice__summary-item">
-          <mat-form-field>
-            <input matInput [(ngModel)]="invoice.discount" (change)="calculateInvoice()" type="number"
-                   placeholder="Discount" aria-label="Discount">
-            <span matSuffix>%&nbsp;</span>
-          </mat-form-field>
-        </div>
+          <!-- Product Quantity -->
+          <div class="product-item__item">
+            <mat-form-field>
+              <input matInput [formControl]="quantity" minlength="1" type="number" placeholder="Quantity">
+              <mat-hint align="end">Enter Product Quantity</mat-hint>
+            </mat-form-field>
+          </div><!-- @end of Product Quantity -->
 
-        <div class="invoice__summary-item">
-          Total: $ {{ invoice.total }}
-        </div>
+          <div class="product-item__item">
+            <button mat-raised-button (click)="addProduct(product_id, quantity)"
+                    [disabled]="product_id.invalid || quantity.invalid">Add
+            </button>
+          </div>
 
-      </div><!-- @end of Invoice Summary -->
+        </div><!-- @end of Add new Product -->
 
-    </mat-card-content>
-    <mat-card-footer class="invoice__footer">
-      <button type="button" mat-raised-button class="invoice__footer-item" (click)="cancel() ">Cancel</button>
-      <button type="submit" mat-raised-button class="invoice__footer-item" (click)="saveInvoice()" color="primary">Save</button>
-    </mat-card-footer>
-  </mat-card>
+
+        <!-- Invoice Summary -->
+        <div class="invoice__summary">
+
+          <div class="invoice__summary-item">
+            <mat-form-field>
+              <input matInput formControlName="discount" (change)="calculateInvoice()" type="number"
+                     placeholder="Discount" aria-label="Discount">
+              <span matSuffix>%&nbsp;</span>
+            </mat-form-field>
+          </div>
+
+          <div class="invoice__summary-item">
+            Total: $ {{ invoiceForm.get('total').value }}
+          </div>
+
+        </div><!-- @end of Invoice Summary -->
+
+      </mat-card-content>
+      <mat-card-footer class="invoice__footer">
+        <button type="button" mat-raised-button class="invoice__footer-item" (click)="cancel() ">Cancel</button>
+        <button type="submit" mat-raised-button class="invoice__footer-item" (click)="saveInvoice()"
+                [disabled]="invoiceForm.invalid || invoiceForm.get('total').value === 0" color="primary">Save
+        </button>
+      </mat-card-footer>
+    </mat-card>
+
+  </form>
 
 </div>
