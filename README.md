@@ -16,7 +16,7 @@ Features:
 # Getting Started
 
 ###### Install npm dependencies
-`npm install`
+`yarn`
 
 ###### Run the node server
 `node app.js`
@@ -25,7 +25,8 @@ Features:
 `yarn start`
 
 ###### Viewing the application in your browser
-`http://localhost:8000`
+
+[http://localhost:4200](http://localhost:4200)
 
 # Schema
 

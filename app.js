@@ -128,7 +128,7 @@ var app = module.exports = express();
 app.set('port', process.env.PORT || 8000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'src')));
 
 // CUSTOMERS API
 
@@ -282,7 +282,7 @@ app.route('/api/invoices/:invoice_id/items/:id')
 
 // Redirect all non api requests to the index
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'src', 'index.html'));
 });
 
 // Starting express server
